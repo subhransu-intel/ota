@@ -23,6 +23,7 @@
  * 11. Update the files/binaries and restart the stopped process
  */
 
+#include<config.h>
 #include<stdio.h>
 #include<getopt.h>
 
