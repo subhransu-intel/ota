@@ -1,4 +1,4 @@
-#include<stdio.h>
+
 
 /*
  * 1. Query binary folder for files
@@ -23,3 +23,53 @@
  * 11. Update the files/binaries and restart the stopped process
  */
 
+#include<stdio.h>
+#include<getopt.h>
+
+#define OTA_IOT_CLIENT_VERSION	"0.0.0"
+
+static char *command;
+
+static void print_version()
+{
+	printf("%s: version " OTA_IOT_CLIENT_VERSION "\n", command);
+}
+
+static void print_help()
+{
+	printf("Usage: %s [OPTION]...\n\n"
+		"-h, --help		help\n"
+		"-v, --version		version\n",
+		command
+	      );
+}
+
+int main(int argc, char **argv)
+{
+	int opt_index;
+	static const char short_options[] = "hv";
+	static const struct option long_options[] = {
+		{"help", 0, 0, 'h'},
+		{"version", 0, 0, 'v'},
+		{0, 0, 0, 0}
+	};
+	int c;
+
+	command = argv[0];
+
+	while (1) {
+		c = getopt_long(argc, argv, short_options, long_options, &opt_index);
+		if (c == -1)
+			break;
+		switch(c) {
+		case 'h':
+				print_help();
+				break;
+		case 'v':
+				print_version();
+				break;
+		};
+	}
+
+	return 0;
+}
